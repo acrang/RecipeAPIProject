@@ -1,0 +1,69 @@
+@model List<FavoriteRecipeViewModel>
+
+<div>
+    <h1 class="body">Your Favorite Recipes</h1>
+</div>
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped table-dark table-hover">
+        <tr>
+            <th class="text-center">Image / Link</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Ingredients</th>
+            <th class="text-center"><a asp-action="ShowAllFavorites" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["CategorySortParm"]">@Html.DisplayNameFor(model => model[0].Category)</a></th>
+            <th class="text-center"><a asp-action="ShowAllFavorites" asp-route-searchString="@ViewData["CurrentFilter"]" asp-route-sortOrder="@ViewData["RatingSortParm"]">@Html.DisplayNameFor(model => model[0].Rating)</a></th>
+            <th class="text-center">Edit</th>
+            <th class="text-center">Remove</th>
+        </tr>
+        @foreach (FavoriteRecipeViewModel r in Model)
+        {
+            <tr>
+                @if (!string.IsNullOrEmpty(r.Thumbnail))
+                {
+                    <td><a href="@r.RecipeUrl" target="_blank"><img src="@r.Thumbnail" /></a></td>
+                }
+                else
+                {
+                    <td><a href="@r.RecipeUrl" target="_blank"><img src="../img/null_img.png" height="110" width="110" /></a></td>
+                }
+                <td style="text-align:center">@r.Title</td>
+                <td style="text-transform: capitalize">@r.Ingredients</td>
+                <td style="text-align:center">
+                    @if (!(r.Category is null))
+                    {
+                        string value = r.Category;
+                        @value;
+                    }
+                    else
+                    {
+                        string output = "N/A";
+                        @output;
+                    }
+                </td>
+                <td style="text-align:center">
+                    @if (r.Rating > 0)
+                    {
+                        string value = r.Rating.ToString();
+                        @value;
+                    }
+                    else
+                    {
+                        string output = "N/A";
+                        @output;
+                    }
+                </td>
+                <td>
+                    <a asp-controller="LetsEat" asp-action="EditFavorite" asp-route-id="@r.RecipeID" class="btn btn-success align">Edit Entry</a>
+                </td>
+                <td>
+                    <a asp-controller="LetsEat" asp-action="DeleteFavorite" asp-route-id="@r.RecipeID" class="btn btn-danger align">Remove Favorite</a>
+                </td>
+            </tr>
+        }
+        }
+    </table>
+}
+else
+{
+    <p>Looks like you don't have any favorites. Find some using our <a asp-controller="Home" asp-action="Index"><b>search tool</b></a>!</p>
+}

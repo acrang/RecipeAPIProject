@@ -1,0 +1,44 @@
+﻿@model FavoriteRecipeViewModel
+
+<h3>How about. . .</h3>
+<div class="card align-content-center" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text"><u>Ingredients Needed:</u> @Model.Ingredients</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            @{
+                string rating = "";
+                string category = "";
+            }
+            Rating:
+            @if (Model.Rating != 0)
+            {
+                rating = @Model.Rating.ToString() + "/5";
+            }
+            else
+            {
+                rating = "N/A";
+            }
+            @rating
+        </li>
+        <li class="list-group-item">
+            Category:
+            @if (!(Model.Category is null))
+            {
+                category = @Model.Category;
+            }
+            else
+            {
+                category = "N/A";
+            }
+            @category
+        </li>
+    </ul>
+    <div class="card-body">
+        <a href="@Model.RecipeUrl" target="_blank" class="card-link">Recipe Details</a>
+    </div>
+</div>
+<br />
+<button class="btn btn-light" type="submit" onclick="window.location.reload()">Not in the mood</button>

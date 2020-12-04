@@ -1,0 +1,76 @@
+﻿@model LetsEat.Models.FavoriteRecipeViewModel
+
+@{
+    ViewData["Title"] = "Edit Favorite";
+}
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "1",
+        Value = "1"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "2",
+        Value = "2"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "3",
+        Value = "3"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "4",
+        Value = "4"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "5",
+        Value = "5"
+    });
+}
+<h1>Edit Favorite Recipe</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditFavorite" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RecipeID" />
+            <input type="hidden" asp-for="RecipeUrl" />
+            <input type="hidden" asp-for="Thumbnail" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <input asp-for="Ingredients" class="form-control" />
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p class="control-label">Rating</p>
+                @Html.DropDownListFor(model => Model.Rating, listItems, "-- Choose Rating --")
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="LetsEat" asp-action="ShowAllFavorites">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

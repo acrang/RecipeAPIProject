@@ -1,0 +1,28 @@
+﻿@model FavoriteRecipeViewModel
+<h2>Remove from Favorites</h2>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text"><u>Ingredients Needed:</u> @Model.Ingredients</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Rating: @Model.Rating/5</li>
+        <li class="list-group-item">Category: @Model.Category</li>
+    </ul>
+    <div class="card-body">
+        <a href="@Model.RecipeUrl" target="_blank" class="card-link">Recipe Details</a>
+    </div>
+</div>
+<br />
+<p><b>Are you sure you want to remove this recipe from your favorites?</b></p>
+<form asp-controller="LetsEat" asp-action="DeleteFavorite" method="post">
+    <input type="hidden" name="Title" value="@Model.Title" />
+    <input type="hidden" name="RecipeUrl" value="@Model.RecipeUrl" />
+    <input type="hidden" name="Ingredients" value="@Model.Ingredients" />
+    <input type="hidden" name="Thumbnail" value="@Model.Thumbnail" />
+    <input type="hidden" name="Rating" value="@Model.Rating" />
+    <input type="hidden" name="Category" value="@Model.Category" />
+    <input class="btn-light" type="submit" value="Yes" />
+    <input class="btn-light" type="submit" value="No" asp-controller="LetsEat" asp-action="ShowAllFavorites" />
+</form>

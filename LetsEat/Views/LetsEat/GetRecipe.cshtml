@@ -1,0 +1,14 @@
+﻿@model Result
+
+<h3>Confirm you want to add @TempData["Name"] to favorites</h3>
+
+<form asp-controller="FavoriteRecipes" asp-action="AddToFavorites" method="post">
+    <input type="hidden" name="Id" />
+    <input type="hidden" name="RecipeUrl" value="@Model.href" />
+    <input type="hidden" name="Title" value="@Model.title" />
+    <input type="hidden" name="Ingredients" value="@Model.ingredients" />
+    <input type="hidden" name="Thumbnail" value="@Model.thumbnail" />
+    <input type="number" name="Rating" min="0" max="10" />
+    <input type="text" name="Category" />
+    <input type="submit" value="Add to Favorites" />
+</form>

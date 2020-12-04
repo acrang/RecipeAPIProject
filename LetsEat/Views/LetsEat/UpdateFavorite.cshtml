@@ -1,0 +1,14 @@
+﻿@model FavoriteRecipes
+
+<h1>Update @Model.Title</h1>
+
+<form asp-controller="LetsEat" asp-action="UpdateFavorite" method="post">
+    <input type="hidden" name="Title" value="@Model.Title" />
+    <input type="hidden" name="RecipeUrl" value="@Model.RecipeUrl" />
+    <input type="hidden" name="Ingredients" value="@Model.Ingredients" />
+    <input type="hidden" name="Thumbnail" value="@Model.Thumbnail" />
+    <input type="number" name="Rating" value="@Model.Rating" />
+    <input type="text" name="Category" value="@Model.Category" />
+    <input type="submit" value="Save Changes" />
+    <input type="submit" value="Cancel" asp-controller="LetsEat" asp-action="ShowAllFavorites" />
+</form>
